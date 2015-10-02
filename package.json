@@ -1,0 +1,21 @@
+{
+  "name": "DataService",
+  "version": "0.0.1",
+  "author": "Mohammad K. Sidani <moe.sidani@vinelab.com>",
+  "description": "Fetch Data From API Using HTTP Request",
+  "private": true,
+  "license": "BSD",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Vinelab/name.git"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "devDependencies": {
+    "gulp": "~3.9.0",
+    "gulp-concat": "2.6.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-typescript": "~2.8.0"
+  }
+}
