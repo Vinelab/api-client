@@ -13,9 +13,8 @@
   "ignore": [
     "**/.*",
     "/TypeScript",
-    "gulpfile.js",
+    "gulpfile.js"
   ],
-  
   "engines": {
     "node": ">=0.10"
   },
