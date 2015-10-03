@@ -7,8 +7,15 @@
   "license": "BSD",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Vinelab/name.git"
+    "url": "git@github.com:Trelllis/api-client.git"
   },
+  "main": "JavaScript/DataService.js",
+  "ignore": [
+    "**/.*",
+    "/TypeScript",
+    "gulpfile.js",
+  ],
+  
   "engines": {
     "node": ">=0.10"
   },
@@ -19,3 +26,4 @@
     "gulp-typescript": "~2.8.0"
   }
 }
+
