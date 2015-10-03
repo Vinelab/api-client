@@ -10,11 +10,6 @@
     "url": "git@github.com:Trelllis/api-client.git"
   },
   "main": "JavaScript/DataService.js",
-  "ignore": [
-    "**/.*",
-    "/TypeScript",
-    "gulpfile.js"
-  ],
   "engines": {
     "node": ">=0.10"
   },
