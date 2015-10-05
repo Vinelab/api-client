@@ -9,7 +9,7 @@ module DataService {
       this.url = config.config.url;
     }
 
-    getData(uri: string, params?: Object): ng.IPromise<DataService.Config> {
+    getData(uri: string, params?: Object): ng.IPromise<any> {
       return this.$http({
         method: "GET",
         url: this.url + uri,
