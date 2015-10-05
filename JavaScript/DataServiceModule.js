@@ -9,7 +9,7 @@ var DataService;
     var DataFetcher = (function () {
         function DataFetcher($http, config) {
             this.$http = $http;
-            this.url = config.config.url;
+            this.url = config.providerObj.url;
         }
         DataFetcher.prototype.getData = function (uri, params) {
             return this.$http({
@@ -38,7 +38,7 @@ var DataService;
             this.$get = getFn;
             function getFn() {
                 return {
-                    config: this.config
+                    providerObj: this.config
                 };
             }
         }
