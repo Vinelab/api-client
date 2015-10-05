@@ -6,7 +6,7 @@ module DataService {
     static $inject = ['$http', 'config'];
 
     constructor(private $http: ng.IHttpService, config) {
-      this.url = config.config.url;
+      this.url = config.providerObj.url;
     }
 
     getData(uri: string, params?: Object): ng.IPromise<any> {
