@@ -11,7 +11,7 @@ module DataService {
 
       function getFn(): Object {
         return {
-          config: this.config
+          providerObj: this.config
         }
       }
     }
