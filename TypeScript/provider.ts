@@ -1,5 +1,5 @@
 module DataService {
-  export class Provider {
+  export class Config {
     config: any = {
       url: ""
     };
@@ -13,11 +13,12 @@ module DataService {
         return {
           config: this.config
         }
-      };
+      }
     }
 
     setUrl(url: string): void {
       this.config.url = url;
     }
   }
+  angular.module("DataService").provider('config', Config);
 }
