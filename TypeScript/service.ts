@@ -3,13 +3,13 @@ module DataService {
   export class DataFetcher {
     url: string;
 
-    static $inject = ['$http', 'configUrl'];
+    static $inject = ['$http', 'config'];
 
-    constructor(private $http: ng.IHttpService, configUrl) {
-      this.url = configUrl.config.url;
+    constructor(private $http: ng.IHttpService, config) {
+      this.url = config.config.url;
     }
 
-    getData(uri: string, params?: Object): ng.IPromise<Provider> {
+    getData(uri: string, params?: Object): ng.IPromise<DataService.Config> {
       return this.$http({
         method: "GET",
         url: this.url + uri,
@@ -20,4 +20,5 @@ module DataService {
       });
     }
   }
+  angular.module("DataService").service("dataFetcher", DataFetcher);
 }
