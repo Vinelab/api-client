@@ -6,7 +6,7 @@ var lazy = require("gulp-load-plugins")({lazy: true});
  * * * Compile Typescript to JavaScript 
  */
 gulp.task("compile-ts", function () {
-    return gulp.src(['./TypeScript/service.ts', './TypeScript/provider.ts', './TypeScript/module.ts'])
+    return gulp.src([ './TypeScript/module.ts', './TypeScript/service.ts', './TypeScript/provider.ts'])
                .pipe(lazy.typescript({
                 // Generates corresponding .map file. 
                 sourceMap : false,
@@ -29,7 +29,7 @@ gulp.task("compile-ts", function () {
                 // Specify ECMAScript target version: 'ES3' (default), or 'ES5' 
                 target : "ES5"
               }))
-              .pipe(lazy.concat("DataService.js"))
+              .pipe(lazy.concat("DataServiceModule.js"))
               .pipe(gulp.dest("JavaScript/"));
 });
 
