@@ -35,13 +35,13 @@ var DataService;
             this.config = {
                 url: ""
             };
-            this.$get = getFn;
-            function getFn() {
-                return {
-                    providerObj: this.config
-                };
-            }
+            this.$get = this.getFn;
         }
+        Config.prototype.getFn = function () {
+            return {
+                providerObj: this.config
+            };
+        };
         Config.prototype.setUrl = function (url) {
             this.config.url = url;
         };
