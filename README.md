@@ -20,8 +20,13 @@ By calling the service's "GET" function from the controller, you'll able to issu
 	Inject the module "DataService" inside your App module.
 
 	Create a config function, on your App module, that sets the URL of the provider. 
-		[provider name][Provider].setUrl(url to api)
+		app.config(() => {
+			[provider name][Provider].setUrl(url to api);
+		});
 
-	Inject the service "dataFetcher" inside your App controllers and call the get method that fires an HTTP request.
-		dataFetcher.getData(specific uri).then((response: any) => { }, (response: any) => { });
+	Inject the service "dataFetcher" inside your App controllers and call the get method that fires an HTTP 		request.
+		app.controller("myController", ("dataFetcher") => {
+			dataFetcher.getData(specific uri).then((response: any) => {//response success code }, 
+			(response: any) => {//response error code });
+		});
 
