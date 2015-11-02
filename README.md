@@ -17,18 +17,18 @@ By calling the service's "GET" function from the controller, you'll able to issu
 
 #Getting Started
 
-##Inject the module "DataService" inside your App module.
+##Inject the module "DataService" in your App module
 	module App {
 		angular.module("App", ["DataService]);
 	}
 
-##Create a config function, on your App module, that sets the URL of the provider. 
-	app.config(() => {
+##Create a config function, on your App module, that sets the URL of the provider
+	angular.module("App").config(() => {
 		[provider name][Provider].setUrl(url to api);
 	});
 	
-##Inject the service "dataFetcher" inside your App controllers and call the get method that fires an HTTP 		request.
-	app.controller("myController", ("dataFetcher") => {
+##Inject the service "dataFetcher" in your App controller and call the "getData" method
+	angular.module("App").controller("myController", ("dataFetcher") => {
 		dataFetcher.getData(specific uri).then(
 			(response: any) => {
 				//response success code 
