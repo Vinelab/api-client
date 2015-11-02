@@ -9,7 +9,7 @@ var DataService;
     var DataFetcher = (function () {
         function DataFetcher($http, config) {
             this.$http = $http;
-            this.url = config.config.url;
+            this.url = config.providerObj.url;
         }
         DataFetcher.prototype.getData = function (uri, params) {
             return this.$http({
@@ -35,13 +35,13 @@ var DataService;
             this.config = {
                 url: ""
             };
-            this.$get = getFn;
-            function getFn() {
-                return {
-                    config: this.config
-                };
-            }
+            this.$get = this.getFn;
         }
+        Config.prototype.getFn = function () {
+            return {
+                providerObj: this.config
+            };
+        };
         Config.prototype.setUrl = function (url) {
             this.config.url = url;
         };
