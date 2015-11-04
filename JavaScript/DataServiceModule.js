@@ -13,7 +13,17 @@ var DataService;
         }
         DataFetcher.prototype.getData = function (uri, params) {
             return this.$http({
-                method: "GET",
+                method: 'GET',
+                url: this.url + uri,
+                data: params
+            })
+                .then(function (response) {
+                return response.data;
+            });
+        };
+        DataFetcher.prototype.sendData = function (uri, params) {
+            return this.$http({
+                method: 'POST',
                 url: this.url + uri,
                 data: params
             })
@@ -25,7 +35,7 @@ var DataService;
         return DataFetcher;
     })();
     DataService.DataFetcher = DataFetcher;
-    angular.module("DataService").service("dataFetcher", DataFetcher);
+    angular.module('DataService').service('dataFetcher', DataFetcher);
 })(DataService || (DataService = {}));
 
 var DataService;
