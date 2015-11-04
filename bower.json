@@ -1,23 +1,17 @@
 {
-  "name": "DataService",
+  "name": "dataService",
+  "preferGlobal": false,
   "version": "0.0.1",
   "author": "Mohammad K. Sidani <moe.sidani@vinelab.com>",
-  "description": "Fetch Data From API Using HTTP Request",
-  "private": true,
+  "description": "Automate project tasks using Gulp",
   "license": "BSD",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:Vinelab/api-client.git"
-  },
-  "main": "JavaScript/DataServiceModule.js",
-  "engines": {
-    "node": ">=0.10"
-  },
-  "devDependencies": {
-    "gulp": "~3.9.0",
-    "gulp-concat": "2.6.0",
-    "gulp-load-plugins": "^0.9.0",
-    "gulp-typescript": "~2.8.0"
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_packages"
+  ],
+  "dependencies": {
   }
 }
-
