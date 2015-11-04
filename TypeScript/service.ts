@@ -22,8 +22,18 @@ module DataService {
       });
     }
 
+    sendData(uri: string, params: Object): ng.IPromise<any> {
+      return this.$http({
+        method: 'POST',
+        url: this.url + uri,
+        data: params
+      })
+      .then((response: any) => {
+        return response.data;
+      }, (reason: any) => {
+        return reason;
       });
     }
   }
-  angular.module("DataService").service("dataFetcher", DataFetcher);
+  angular.module('DataService').service('dataFetcher', DataFetcher);
 }
