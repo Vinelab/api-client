@@ -11,12 +11,17 @@ module DataService {
 
     getData(uri: string, params?: Object): ng.IPromise<any> {
       return this.$http({
-        method: "GET",
+        method: 'GET',
         url: this.url + uri,
-        data: params 
+        data: params
       })
       .then((response: any) => {
         return response.data;
+      }, (reason: any) {
+        return reason;
+      });
+    }
+
       });
     }
   }
