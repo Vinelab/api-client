@@ -34,6 +34,20 @@ module DataService {
         return reason;
       });
     }
+
+    request(method: string, uri: string, params?: Object, data?: Object){
+      return this.$http({
+        method: method,
+        url: this.url + uri,
+        params: params,
+        data: data
+      })
+      .then((response: any) => {
+        return response.data;
+      }, (reason: any) => {
+        return reason;
+      });
+    }
   }
   angular.module('DataService').service('dataFetcher', DataFetcher);
 }
