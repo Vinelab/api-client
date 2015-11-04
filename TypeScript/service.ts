@@ -17,7 +17,7 @@ module DataService {
       })
       .then((response: any) => {
         return response.data;
-      }, (reason: any) {
+      }, (reason: any) => {
         return reason;
       });
     }

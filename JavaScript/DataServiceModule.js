@@ -19,6 +19,8 @@ var DataService;
             })
                 .then(function (response) {
                 return response.data;
+            }, function (reason) {
+                return reason;
             });
         };
         DataFetcher.prototype.sendData = function (uri, params) {
@@ -29,6 +31,21 @@ var DataService;
             })
                 .then(function (response) {
                 return response.data;
+            }, function (reason) {
+                return reason;
+            });
+        };
+        DataFetcher.prototype.request = function (method, uri, params, data) {
+            return this.$http({
+                method: method,
+                url: this.url + uri,
+                params: params,
+                data: data
+            })
+                .then(function (response) {
+                return response.data;
+            }, function (reason) {
+                return reason;
             });
         };
         DataFetcher.$inject = ['$http', 'config'];
