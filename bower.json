@@ -6,6 +6,7 @@
   "description": "Automate project tasks using Gulp",
   "license": "BSD",
   "homepage": "",
+    "main": "./javascript/DataServiceModule.js",
   "private": true,
   "ignore": [
     "**/.*",
