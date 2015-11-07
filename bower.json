@@ -6,13 +6,8 @@
   "description": "Automate project tasks using Gulp",
   "license": "BSD",
   "homepage": "",
-    "main": "./javascript/DataServiceModule.js",
+  "main": "./javascript/DataServiceModule.js",
   "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_packages"
-  ],
   "dependencies": {
     "angular": "~1.4.7"
   }
