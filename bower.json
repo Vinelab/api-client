@@ -1,13 +1,10 @@
 {
   "name": "dataService",
-  "preferGlobal": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Mohammad K. Sidani <moe.sidani@vinelab.com>",
   "description": "Automate project tasks using Gulp",
-  "license": "BSD",
-  "homepage": "",
+  "homepage": "https://github.com/Vinelab/api-client",
   "main": "./javascript/DataServiceModule.js",
-  "private": true,
   "dependencies": {
     "angular": "~1.4.7"
   }
