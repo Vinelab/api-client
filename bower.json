@@ -1,5 +1,5 @@
 {
-  "name": "dataService",
+  "name": "DataServiceModule",
   "version": "0.0.5",
   "author": "Mohammad K. Sidani <moe.sidani@vinelab.com>",
   "description": "Automate project tasks using Gulp",
