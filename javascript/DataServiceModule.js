@@ -13,19 +13,46 @@ var DataService;
         }
         DataFetcher.prototype.getData = function (uri, params) {
             return this.$http({
-                method: "GET",
+                method: 'GET',
                 url: this.url + uri,
                 data: params
             })
                 .then(function (response) {
                 return response.data;
+            }, function (reason) {
+                return reason;
+            });
+        };
+        DataFetcher.prototype.sendData = function (uri, params) {
+            return this.$http({
+                method: 'POST',
+                url: this.url + uri,
+                data: params
+            })
+                .then(function (response) {
+                return response.data;
+            }, function (reason) {
+                return reason;
+            });
+        };
+        DataFetcher.prototype.request = function (method, uri, params, data) {
+            return this.$http({
+                method: method,
+                url: this.url + uri,
+                params: params,
+                data: data
+            })
+                .then(function (response) {
+                return response.data;
+            }, function (reason) {
+                return reason;
             });
         };
         DataFetcher.$inject = ['$http', 'config'];
         return DataFetcher;
     })();
     DataService.DataFetcher = DataFetcher;
-    angular.module("DataService").service("dataFetcher", DataFetcher);
+    angular.module('DataService').service('dataFetcher', DataFetcher);
 })(DataService || (DataService = {}));
 
 var DataService;
