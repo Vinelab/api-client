@@ -16,11 +16,6 @@ var DataService;
                 method: 'GET',
                 url: this.url + uri,
                 data: params
-            })
-                .then(function (response) {
-                return response.data;
-            }, function (reason) {
-                return reason;
             });
         };
         DataFetcher.prototype.sendData = function (uri, params) {
@@ -28,11 +23,6 @@ var DataService;
                 method: 'POST',
                 url: this.url + uri,
                 data: params
-            })
-                .then(function (response) {
-                return response.data;
-            }, function (reason) {
-                return reason;
             });
         };
         DataFetcher.prototype.request = function (method, uri, params, data) {
@@ -41,11 +31,6 @@ var DataService;
                 url: this.url + uri,
                 params: params,
                 data: data
-            })
-                .then(function (response) {
-                return response.data;
-            }, function (reason) {
-                return reason;
             });
         };
         DataFetcher.$inject = ['$http', 'config'];
