@@ -1,42 +1,69 @@
 (function(){
-  angular.module('testApp', ['DataService'])
+  angular.module('testApp', ['ngRoute', 'DataService'])
     .config(configFn)
-    .controller('testController', testController);
+    .controller('homeController', homeController)
+    .controller('detailsController', detailsController);
 
-
-  function configFn (configProvider){
+  function configFn (configProvider, $routeProvider, $locationProvider){
     console.log(configProvider);
-    configProvider.setUrl('http://52.30.108.12/');
+    configProvider.setUrl('http://dev.trellis.tv/-/');
+
+    // $locationProvider.html5Mode(true);
+
+    $routeProvider
+      .when('/',{
+        template: ' <div ng-repeat="article in homeCtrl.data"><a href="#/article/{{article.id}}">{{article.id}}</a></div>',
+        controller: 'homeController',
+        controllerAs: 'homeCtrl'
+      })
+      .when('/article/:id', {
+        template: '<div>{{detailsCtrl.article}}</div>',
+        controller: 'detailsController',
+        controllerAs: 'detailsCtrl'
+      });
+
   }
 
-  function testController(dataFetcher){
 
-    dataFetcher.request('DELETE', 'influencers/16c47621-5991-4a26-b3fc-fabc732ac0bb')
-      .then(function(response){
-        console.log(response);
-      }, function(reason){
-        console.log(reason);
-      });
-    // dataFetcher.getData('articles')
-    //   .then(function(response){
-    //     console.log(response);
-    //   });
+  function detailsController($route, dataFetcher, dataCaching) {
+    var vm = this;
+    var singleArticle = dataCaching.getMemoryCachedData('articles', $route.current.params.id);
 
-    // var data = {
-    //   cover: undefined,
-    //   title: 'this is a title',
-    //   slug: 'and this is the slug',
-    //   is_promoted: false,
-    //   is_trending: false,
-    //   content: undefined
-    // };
+    console.log(singleArticle);
 
-    // dataFetcher.sendData('articles', data)
-    //   .then(function(response){
-    //     console.log(response);
-    //   }, function(reason){
-    //     console.log(reason);
-    //   });
+    if(singleArticle) {
+      vm.article = singleArticle;
+    } else {
+      dataFetcher.getData('articles/' + $route.current.params.id)
+        .then(function(response){
+          console.log(response);
+          vm.article = response.data;
+        }, function(reason){
+          console.log(reason);
+        });
+    }
 
+  }
+
+  function homeController(dataFetcher, dataCaching){
+
+    var vm = this;
+    console.log(dataCaching.getLocalStorageData('articles'));
+    var cachedData = dataCaching.getLocalStorageData('articles');
+    if(cachedData) {
+      this.data = cachedData;
+      dataCaching.setMemoryCache('articles', cachedData, 'id');
+
+    } else {
+      dataFetcher.getData('articles?limit=5')
+        .then(function(response){
+
+          console.log(response);
+          vm.data = response.data;
+
+          dataCaching.setLocalStorageData('articles', response.data);
+          dataCaching.setMemoryCache('articles', response.data, 'id');
+        });
+    }
   }
 })();

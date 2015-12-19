@@ -6,38 +6,42 @@ var DataService;
 /// <reference path="../lib/angular.d.ts" />
 var DataService;
 (function (DataService) {
-    var DataFetcher = (function () {
-        function DataFetcher($http, config) {
-            this.$http = $http;
-            this.url = config.providerObj.url;
+    var DataCaching = (function () {
+        function DataCaching() {
+            this.dataObject = {};
         }
-        DataFetcher.prototype.getData = function (uri, params) {
-            return this.$http({
-                method: 'GET',
-                url: this.url + uri,
-                data: params
-            });
+        DataCaching.prototype.setLocalStorageData = function (type, content) {
+            try {
+                localStorage.setItem(type, JSON.stringify(content));
+            }
+            catch (e) { }
         };
-        DataFetcher.prototype.sendData = function (uri, params) {
-            return this.$http({
-                method: 'POST',
-                url: this.url + uri,
-                data: params
-            });
+        DataCaching.prototype.getLocalStorageData = function (type) {
+            if (localStorage.getItem(type)) {
+                return JSON.parse(localStorage.getItem(type));
+            }
+            else {
+                return false;
+            }
         };
-        DataFetcher.prototype.request = function (method, uri, params, data) {
-            return this.$http({
-                method: method,
-                url: this.url + uri,
-                params: params,
-                data: data
-            });
+        DataCaching.prototype.setMemoryCache = function (dataType, data, usedKey) {
+            var _this = this;
+            if (!this.dataObject[dataType]) {
+                this.dataObject[dataType] = {};
+            }
+            angular.forEach(data, function (value, key) {
+                _this.dataObject[dataType][value[usedKey]] = value;
+            }, data);
         };
-        DataFetcher.$inject = ['$http', 'config'];
-        return DataFetcher;
+        DataCaching.prototype.getMemoryCachedData = function (dataType, slug) {
+            if (this.dataObject[dataType] && this.dataObject[dataType][slug]) {
+                return this.dataObject[dataType][slug];
+            }
+        };
+        return DataCaching;
     })();
-    DataService.DataFetcher = DataFetcher;
-    angular.module('DataService').service('dataFetcher', DataFetcher);
+    DataService.DataCaching = DataCaching;
+    angular.module('DataService').service('dataCaching', DataCaching);
 })(DataService || (DataService = {}));
 
 var DataService;
@@ -61,4 +65,53 @@ var DataService;
     })();
     DataService.Config = Config;
     angular.module("DataService").provider('config', Config);
+})(DataService || (DataService = {}));
+
+/// <reference path="../lib/angular.d.ts" />
+var DataService;
+(function (DataService) {
+    var DataFetcher = (function () {
+        function DataFetcher($http, config) {
+            this.$http = $http;
+            this.url = config.providerObj.url;
+        }
+        DataFetcher.prototype.getData = function (uri, params) {
+            return this.$http({
+                method: 'GET',
+                url: this.url + uri,
+                data: params
+            }).then(function (response) {
+                return response.data;
+            }, function (reason) {
+                return reason;
+            });
+        };
+        DataFetcher.prototype.sendData = function (uri, params) {
+            return this.$http({
+                method: 'POST',
+                url: this.url + uri,
+                data: params
+            }).then(function (response) {
+                return response.data;
+            }, function (reason) {
+                return reason;
+            });
+        };
+        DataFetcher.prototype.request = function (method, uri, params, data) {
+            return this.$http({
+                method: method,
+                url: this.url + uri,
+                params: params,
+                data: data
+            }).then(function (response) {
+                return response.data;
+            }, function (reason) {
+                return reason;
+            });
+        };
+        DataFetcher.$inject = ['$http', 'config'];
+        return DataFetcher;
+    })();
+    DataService.DataFetcher = DataFetcher;
+    angular.module('DataService').service('dataFetcher', DataFetcher);
 })(DataService || (DataService = {}));

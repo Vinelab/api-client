@@ -14,6 +14,11 @@ module DataService {
         method: 'GET',
         url: this.url + uri,
         data: params
+      }).then((response) => {
+
+        return response.data;
+      }, (reason) => {
+        return reason;
       });
     }
 
@@ -22,6 +27,10 @@ module DataService {
         method: 'POST',
         url: this.url + uri,
         data: params
+      }).then((response) => {
+        return response.data;
+      }, (reason) => {
+        return reason;
       });
     }
 
@@ -31,6 +40,10 @@ module DataService {
         url: this.url + uri,
         params: params,
         data: data
+      }).then((response) => {
+        return response.data;
+      }, (reason) => {
+        return reason;
       });
     }
   }
