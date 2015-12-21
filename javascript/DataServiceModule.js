@@ -20,11 +20,9 @@ var DataService;
         DataCaching.prototype.getLocalStorageData = function (type) {
             return this.$q(function (resolve, reject) {
                 if (localStorage.getItem(type)) {
-                    console.log('resolved');
                     resolve(JSON.parse(localStorage.getItem(type)));
                 }
                 else {
-                    console.log('rejected');
                     reject('no data of the type ' + type + ' in the localstorage');
                 }
             });
@@ -96,35 +94,39 @@ var DataService;
                     url: _this.url + uri,
                     data: params
                 }).then(function (response) {
-                    console.log('response');
                     resolve(response.data);
                 }, function (reason) {
                     reject(reason);
-                    console.log('reject');
                 });
             });
         };
         DataFetcher.prototype.sendData = function (uri, params) {
-            return this.$http({
-                method: 'POST',
-                url: this.url + uri,
-                data: params
-            }).then(function (response) {
-                return response.data;
-            }, function (reason) {
-                return reason;
+            var _this = this;
+            return this.$q(function (resolve, reject) {
+                _this.$http({
+                    method: 'POST',
+                    url: _this.url + uri,
+                    data: params
+                }).then(function (response) {
+                    resolve(response.data);
+                }, function (reason) {
+                    reject(reason);
+                });
             });
         };
         DataFetcher.prototype.request = function (method, uri, params, data) {
-            return this.$http({
-                method: method,
-                url: this.url + uri,
-                params: params,
-                data: data
-            }).then(function (response) {
-                return response.data;
-            }, function (reason) {
-                return reason;
+            var _this = this;
+            return this.$q(function (resolve, reject) {
+                _this.$http({
+                    method: method,
+                    url: _this.url + uri,
+                    params: params,
+                    data: data
+                }).then(function (response) {
+                    resolve(response.data);
+                }, function (reason) {
+                    reject(reason);
+                });
             });
         };
         DataFetcher.$inject = ['$http', '$q', 'config'];
