@@ -17,10 +17,8 @@ module DataService {
 
       return this.$q((resolve, reject) => {
         if (localStorage.getItem(type)) {
-            console.log('resolved');
             resolve(JSON.parse(localStorage.getItem(type)));
           } else {
-            console.log('rejected');
             reject('no data of the type ' + type + ' in the localstorage');
           }
       });
