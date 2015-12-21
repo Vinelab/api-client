@@ -1,7 +1,7 @@
 {
   "name": "gulp-project-automation",
   "preferGlobal": false,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Mohammad K. Sidani <moe.sidani@vinelab.com>",
   "description": "Fetch Data From API Using HTTP Request",
   "private": true,

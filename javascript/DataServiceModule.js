@@ -83,19 +83,25 @@ var DataService;
 var DataService;
 (function (DataService) {
     var DataFetcher = (function () {
-        function DataFetcher($http, config) {
+        function DataFetcher($http, $q, config) {
             this.$http = $http;
+            this.$q = $q;
             this.url = config.providerObj.url;
         }
         DataFetcher.prototype.getData = function (uri, params) {
-            return this.$http({
-                method: 'GET',
-                url: this.url + uri,
-                data: params
-            }).then(function (response) {
-                return response.data;
-            }, function (reason) {
-                return reason;
+            var _this = this;
+            return this.$q(function (resolve, reject) {
+                _this.$http({
+                    method: 'GET',
+                    url: _this.url + uri,
+                    data: params
+                }).then(function (response) {
+                    console.log('response');
+                    resolve(response.data);
+                }, function (reason) {
+                    reject(reason);
+                    console.log('reject');
+                });
             });
         };
         DataFetcher.prototype.sendData = function (uri, params) {
@@ -121,7 +127,7 @@ var DataService;
                 return reason;
             });
         };
-        DataFetcher.$inject = ['$http', 'config'];
+        DataFetcher.$inject = ['$http', '$q', 'config'];
         return DataFetcher;
     })();
     DataService.DataFetcher = DataFetcher;
