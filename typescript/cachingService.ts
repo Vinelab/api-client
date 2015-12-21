@@ -3,7 +3,9 @@ module DataService {
   export class DataCaching {
     dataObject: Object = {};
 
-    constructor() {}
+    static $inject = ['$q'];
+
+    constructor(public $q) {}
 
     setLocalStorageData(type, content) {
       try {
@@ -12,11 +14,16 @@ module DataService {
     }
 
     getLocalStorageData(type) {
-      if (localStorage.getItem(type)) {
-        return JSON.parse(localStorage.getItem(type));
-      } else {
-        return false;
-      }
+
+      return this.$q((resolve, reject) => {
+        if (localStorage.getItem(type)) {
+            console.log('resolved');
+            resolve(JSON.parse(localStorage.getItem(type)));
+          } else {
+            console.log('rejected');
+            reject('no data of the type ' + type + ' in the localstorage');
+          }
+      });
     }
 
     setMemoryCache(dataType, data, usedKey) {
@@ -31,9 +38,13 @@ module DataService {
     }
 
     getMemoryCachedData(dataType, slug) {
-      if (this.dataObject[dataType] && this.dataObject[dataType][slug]) {
-        return this.dataObject[dataType][slug];
-      }
+      return this.$q((resolve, reject) => {
+        if (this.dataObject[dataType] && this.dataObject[dataType][slug]) {
+          resolve(this.dataObject[dataType][slug]);
+        } else {
+          reject('no article available in the cache');
+        }
+      });
     }
   }
 

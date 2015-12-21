@@ -7,7 +7,8 @@ var DataService;
 var DataService;
 (function (DataService) {
     var DataCaching = (function () {
-        function DataCaching() {
+        function DataCaching($q) {
+            this.$q = $q;
             this.dataObject = {};
         }
         DataCaching.prototype.setLocalStorageData = function (type, content) {
@@ -17,12 +18,16 @@ var DataService;
             catch (e) { }
         };
         DataCaching.prototype.getLocalStorageData = function (type) {
-            if (localStorage.getItem(type)) {
-                return JSON.parse(localStorage.getItem(type));
-            }
-            else {
-                return false;
-            }
+            return this.$q(function (resolve, reject) {
+                if (localStorage.getItem(type)) {
+                    console.log('resolved');
+                    resolve(JSON.parse(localStorage.getItem(type)));
+                }
+                else {
+                    console.log('rejected');
+                    reject('no data of the type ' + type + ' in the localstorage');
+                }
+            });
         };
         DataCaching.prototype.setMemoryCache = function (dataType, data, usedKey) {
             var _this = this;
@@ -34,10 +39,17 @@ var DataService;
             }, data);
         };
         DataCaching.prototype.getMemoryCachedData = function (dataType, slug) {
-            if (this.dataObject[dataType] && this.dataObject[dataType][slug]) {
-                return this.dataObject[dataType][slug];
-            }
+            var _this = this;
+            return this.$q(function (resolve, reject) {
+                if (_this.dataObject[dataType] && _this.dataObject[dataType][slug]) {
+                    resolve(_this.dataObject[dataType][slug]);
+                }
+                else {
+                    reject('no article available in the cache');
+                }
+            });
         };
+        DataCaching.$inject = ['$q'];
         return DataCaching;
     })();
     DataService.DataCaching = DataCaching;

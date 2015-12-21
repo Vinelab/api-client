@@ -5,7 +5,7 @@
     .controller('detailsController', detailsController);
 
   function configFn (configProvider, $routeProvider, $locationProvider){
-    console.log(configProvider);
+    // console.log(configProvider);
     configProvider.setUrl('http://dev.trellis.tv/-/');
 
     // $locationProvider.html5Mode(true);
@@ -27,43 +27,43 @@
 
   function detailsController($route, dataFetcher, dataCaching) {
     var vm = this;
-    var singleArticle = dataCaching.getMemoryCachedData('articles', $route.current.params.id);
 
-    console.log(singleArticle);
-
-    if(singleArticle) {
-      vm.article = singleArticle;
-    } else {
-      dataFetcher.getData('articles/' + $route.current.params.id)
-        .then(function(response){
-          console.log(response);
-          vm.article = response.data;
-        }, function(reason){
-          console.log(reason);
-        });
-    }
-
+    dataCaching.getMemoryCachedData('articles', $route.current.params.id)
+      .then(function(response) {
+        console.log(response);
+        vm.article = response;
+      }, function(reason) {
+        console.log(reason);
+        dataFetcher.getData('articles/' + $route.current.params.id)
+          .then(function(response){
+            console.log(response);
+            vm.article = response.data;
+          }, function(reason){
+            console.log(reason);
+          });
+      });
   }
 
   function homeController(dataFetcher, dataCaching){
 
     var vm = this;
-    console.log(dataCaching.getLocalStorageData('articles'));
-    var cachedData = dataCaching.getLocalStorageData('articles');
-    if(cachedData) {
-      this.data = cachedData;
-      dataCaching.setMemoryCache('articles', cachedData, 'id');
 
-    } else {
-      dataFetcher.getData('articles?limit=5')
-        .then(function(response){
+    dataCaching.getLocalStorageData('articles')
+      .then(function(response) {
+        console.log(response)
+        vm.data = response;
+        dataCaching.setMemoryCache('articles', response, 'id');
+      }, function(reason) {
+        console.log(reason);
+        dataFetcher.getData('articles?limit=5')
+          .then(function(response){
 
-          console.log(response);
-          vm.data = response.data;
+            console.log(response);
+            vm.data = response.data;
 
-          dataCaching.setLocalStorageData('articles', response.data);
-          dataCaching.setMemoryCache('articles', response.data, 'id');
-        });
-    }
+            dataCaching.setLocalStorageData('articles', response.data);
+            dataCaching.setMemoryCache('articles', response.data, 'id');
+          });
+      });
   }
 })();
