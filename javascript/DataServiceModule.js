@@ -92,7 +92,7 @@ var DataService;
                 _this.$http({
                     method: 'GET',
                     url: _this.url + uri,
-                    data: params
+                    params: params
                 }).then(function (response) {
                     resolve(response.data);
                 }, function (reason) {

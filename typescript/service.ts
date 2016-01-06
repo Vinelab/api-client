@@ -14,7 +14,7 @@ module DataService {
             this.$http({
                 method: 'GET',
                 url: this.url + uri,
-                data: params
+                params: params
             }).then((response) => {
                 resolve(response.data);
             }, (reason) => {
