@@ -38,7 +38,7 @@ module DataService {
         });
     }
 
-    request(method: string, uri: string, params?: Object, data?: Object){
+    request(method: string, uri: string, params?: Object, data?: Object): ng.IPromise<any> {
 
         return this.$q((resolve, reject) => {
             this.$http({
