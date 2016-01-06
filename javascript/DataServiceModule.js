@@ -100,13 +100,13 @@ var DataService;
                 });
             });
         };
-        DataFetcher.prototype.sendData = function (uri, params) {
+        DataFetcher.prototype.sendData = function (uri, data) {
             var _this = this;
             return this.$q(function (resolve, reject) {
                 _this.$http({
                     method: 'POST',
                     url: _this.url + uri,
-                    data: params
+                    data: data
                 }).then(function (response) {
                     resolve(response.data);
                 }, function (reason) {

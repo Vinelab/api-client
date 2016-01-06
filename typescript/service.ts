@@ -23,13 +23,13 @@ module DataService {
           });
     }
 
-    sendData(uri: string, params: Object): ng.IPromise<any> {
+    sendData(uri: string, data: Object): ng.IPromise<any> {
 
         return this.$q((resolve, reject) => {
             this.$http({
                 method: 'POST',
                 url: this.url + uri,
-                data: params
+                data: data
             }).then((response) => {
                 resolve(response.data);
             }, (reason) => {
